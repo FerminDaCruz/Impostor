@@ -1,0 +1,15 @@
+{
+    "ok": true,
+    "room": {
+        "code": "1BDM8",
+        "hostId": "22dfd40f-4be0-4cc8-a856-a4e43fda5e3b",
+        "players": [],
+        "status": "waiting",
+        "impostorId": null,
+        "impostorIds": [],
+        "createdAt": 1764110235177,
+        "lastActive": 1764110235177,
+        "theme": null,
+        "word": null
+    }
+}
