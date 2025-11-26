@@ -1,4 +1,5 @@
 import { cleanupRooms } from "@/src/lib/cleanupRooms";
+import { broadcast } from "@/src/lib/eventStore";
 import { rooms } from "@/src/lib/roomStore";
 import { NextResponse } from "next/server";
 
@@ -48,7 +49,17 @@ export async function POST(req: Request) {
     room.impostorIds = impostorIds;
     room.impostorId = impostorIds.length === 1 ? impostorIds[0] : null;
 
+    broadcast(room.code, "roles-assigned", {
+        roles: players.map((p) => ({
+            id: p.id,
+            role: impostorIds.includes(p.id) ? "impostor" : "crew",
+        })),
+        room,
+    });
+
     room.status = "playing";
+
+    broadcast(room.code, "game-started", room);
 
     return NextResponse.json({
         ok: true,

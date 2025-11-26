@@ -1,6 +1,7 @@
 export const runtime = "nodejs";
 
 import { cleanupRooms } from "@/src/lib/cleanupRooms";
+import { broadcast } from "@/src/lib/eventStore";
 import { rooms } from "@/src/lib/roomStore";
 import { supabase } from "@/src/lib/supabase";
 import { NextResponse } from "next/server";
@@ -35,6 +36,8 @@ export async function POST(req: Request) {
             lastActive: Date.now(),
         });
     }
+
+    broadcast(roomCode, "room-update", room);
 
     return NextResponse.json({ ok: true, room });
 }

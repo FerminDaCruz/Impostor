@@ -1,3 +1,5 @@
+export const runtime = "nodejs";
+
 import { cleanupRooms } from "@/src/lib/cleanupRooms";
 import { rooms } from "@/src/lib/roomStore";
 import { NextResponse } from "next/server";

@@ -1,5 +1,6 @@
 import { cleanupRooms } from "@/src/lib/cleanupRooms";
 import { themes } from "@/src/lib/defaultThemes";
+import { broadcast } from "@/src/lib/eventStore";
 import { rooms } from "@/src/lib/roomStore";
 import { NextResponse } from "next/server";
 
@@ -46,6 +47,8 @@ export async function POST(req: Request) {
 
     room.theme = theme;
     room.word = chosenWord;
+
+    broadcast(room.code, "theme-chosen", { theme, chosenWord, room });
 
     return NextResponse.json({ ok: true, theme, word: chosenWord, room });
 }
